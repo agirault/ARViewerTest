@@ -1,23 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" systemVersion="17A278a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tXr-a1-R10">
             <objects>
-                <viewController id="BV1-FR-VrT" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
-                    <arscnView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="BrB-h1-WRS">
+                <viewController id="BV1-FR-VrT" customClass="ViewController" customModule="ARViewerTest" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="h6f-x4-HTD" userLabel="superView">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    </arscnView>
+                        <subviews>
+                            <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="hbf-eA-AiP" userLabel="ARView">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                            </arscnView>
+                            <visualEffectView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dUx-Sn-7Ug" userLabel="planeVisibilityView">
+                                <rect key="frame" x="208.5" y="601" width="150.5" height="50"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="kPa-RC-8ja">
+                                    <rect key="frame" x="0.0" y="0.0" width="150" height="50"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="ewR-G0-4M4" userLabel="planeVisibilityStackView">
+                                            <rect key="frame" x="0.0" y="1" width="151" height="47"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DEBUG" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7rg-bf-KP8" userLabel="planeVisivilityLabel">
+                                                    <rect key="frame" x="16" y="14" width="54" height="19.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="3yg-79-qWE" userLabel="planeVisibilitySwitch">
+                                                    <rect key="frame" x="86" y="8" width="51" height="31"/>
+                                                    <color key="onTintColor" red="0.27090262229415252" green="0.72336632013320923" blue="0.25438739248674136" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <connections>
+                                                        <action selector="onDebugSwitch:" destination="BV1-FR-VrT" eventType="valueChanged" id="Q0V-Da-ybG"/>
+                                                    </connections>
+                                                </switch>
+                                            </subviews>
+                                            <edgeInsets key="layoutMargins" top="8" left="16" bottom="8" right="16"/>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="ewR-G0-4M4" secondAttribute="trailing" id="YmK-oL-mQK"/>
+                                        <constraint firstItem="ewR-G0-4M4" firstAttribute="centerY" secondItem="kPa-RC-8ja" secondAttribute="centerY" id="bgw-NH-8al"/>
+                                        <constraint firstItem="ewR-G0-4M4" firstAttribute="leading" secondItem="kPa-RC-8ja" secondAttribute="leading" id="hDg-1x-9as"/>
+                                    </constraints>
+                                </view>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="cEO-14-AMM"/>
+                                </constraints>
+                                <blurEffect style="light"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="25"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </visualEffectView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="hbf-eA-AiP" firstAttribute="top" secondItem="qOy-m0-bMj" secondAttribute="top" id="2Wh-9j-s3Z"/>
+                            <constraint firstItem="qOy-m0-bMj" firstAttribute="trailing" secondItem="hbf-eA-AiP" secondAttribute="trailing" id="Ioy-DA-46V"/>
+                            <constraint firstItem="hbf-eA-AiP" firstAttribute="leading" secondItem="qOy-m0-bMj" secondAttribute="leading" id="Laa-MB-7sd"/>
+                            <constraint firstAttribute="trailing" secondItem="dUx-Sn-7Ug" secondAttribute="trailing" constant="16" id="ZPR-un-Y64"/>
+                            <constraint firstItem="qOy-m0-bMj" firstAttribute="bottom" secondItem="hbf-eA-AiP" secondAttribute="bottom" id="e4w-2K-b48"/>
+                            <constraint firstAttribute="bottom" secondItem="dUx-Sn-7Ug" secondAttribute="bottom" constant="16" id="kGt-kR-Oeq"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="qOy-m0-bMj"/>
+                    </view>
                     <connections>
-                        <outlet property="sceneView" destination="BrB-h1-WRS" id="5nT-qQ-ynl"/>
+                        <outlet property="debugSwitch" destination="3yg-79-qWE" id="gxA-bu-7RO"/>
+                        <outlet property="sceneView" destination="hbf-eA-AiP" id="KkS-FF-76i"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>

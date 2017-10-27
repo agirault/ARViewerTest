@@ -13,6 +13,7 @@ import ARKit
 class ViewController: UIViewController, ARSCNViewDelegate {
 
     @IBOutlet var sceneView: ARSCNView!
+    @IBOutlet var debugSwitch: UISwitch!
 
     var config = ARWorldTrackingConfiguration()
     var planeNodes = NSMutableDictionary()
@@ -51,7 +52,20 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 
         // Setup scene view
         self.sceneView.delegate = self
-        self.sceneView.showsStatistics = true
+        self.sceneView.showsStatistics = Constants.showStatistics
+        self.sceneView.debugOptions = self.debugSwitch.isOn ? Constants.debugOptions : []
+    }
+
+    // MARK: - Callbacks
+
+    // show/hide debug info
+    @IBAction func onDebugSwitch(_ sender: UISwitch) {
+        if debugSwitch != sender { return }
+
+        self.sceneView.debugOptions = sender.isOn ? Constants.debugOptions : []
+        for (_, planeNode) in planeNodes {
+            (planeNode as? SCNPlaneNode)?.isHidden = !sender.isOn
+        }
     }
 
     // MARK: - ARSCNViewDelegate
@@ -69,10 +83,12 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // Place content only for anchors found by plane detection.
         guard let planeAnchor = anchor as? ARPlaneAnchor else { return }
 
-        // Create a SceneKit plane to visualize the plane anchor using its position and extent.
-        let planeNode = SCNPlaneNode(with: planeAnchor)
-        node.addChildNode(planeNode)
-        self.planeNodes.setObject(planeNode, forKey: anchor.identifier as NSCopying)
+        DispatchQueue.main.async {
+            // Create a SceneKit plane to visualize the plane anchor using its position and extent.
+            let planeNode = SCNPlaneNode(with: planeAnchor, show: self.debugSwitch.isOn)
+            node.addChildNode(planeNode)
+            self.planeNodes.setObject(planeNode, forKey: anchor.identifier as NSCopying)
+        }
     }
 
     func renderer(_ renderer: SCNSceneRenderer, didRemove node: SCNNode, for anchor: ARAnchor) {

@@ -13,7 +13,7 @@ import ARKit
 class SCNPlaneNode: SCNNode {
     public let anchor: ARPlaneAnchor
 
-    init(with planeAnchor: ARPlaneAnchor) {
+    init(with planeAnchor: ARPlaneAnchor, show: Bool) {
         self.anchor = planeAnchor
         super.init()
 
@@ -25,6 +25,7 @@ class SCNPlaneNode: SCNNode {
         mat?.diffuse.contents = UIColor.random()
         mat?.lightingModel = .constant
 
+        self.isHidden = !show
         self.opacity = Constants.planesOpacity
         self.simdPosition = planeAnchor.center
         self.eulerAngles.x = -.pi / 2 // vertically oriented in its local coordinates -> rotate to horizontal

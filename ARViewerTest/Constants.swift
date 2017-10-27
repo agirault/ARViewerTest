@@ -9,5 +9,7 @@
 import ARKit
 
 struct Constants {
+    static let showStatistics = false
+    static let debugOptions = ARSCNDebugOptions.showFeaturePoints
     static let planesOpacity = 0.5 as CGFloat
 }
