@@ -9,6 +9,9 @@
 import ARKit
 
 struct Constants {
+    static let meshFile = "art.scnassets/cardiac.dae"
+    static let meshScale = 0.2 as Float
+
     static let showStatistics = false
     static let debugOptions = ARSCNDebugOptions.showFeaturePoints
     static let planesOpacity = 0.5 as CGFloat

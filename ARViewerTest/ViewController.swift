@@ -16,6 +16,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     @IBOutlet var debugSwitch: UISwitch!
 
     var config = ARWorldTrackingConfiguration()
+    var displayNodes = [SCNNode]()
+    var currentDisplayNode: SCNNode?
     var planeNodes = NSMutableDictionary()
 
     // MARK: - UIView
@@ -52,11 +54,45 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 
         // Setup scene view
         self.sceneView.delegate = self
+        self.sceneView.autoenablesDefaultLighting = true;
         self.sceneView.showsStatistics = Constants.showStatistics
         self.sceneView.debugOptions = self.debugSwitch.isOn ? Constants.debugOptions : []
+
+        // Import mesh from file
+        guard let scene = SCNScene(named: Constants.meshFile) else {
+            fatalError("Failed to find mesh file")
+        }
+        self.displayNodes = scene.rootNode.childNodes
+        for node in self.displayNodes {
+            node.scale = SCNVector3Make(Constants.meshScale, Constants.meshScale, Constants.meshScale)
+        }
+        //mesh.pivot.m42 = -0.5; // up along -Y
     }
 
     // MARK: - Callbacks
+
+    // place mesh on touch
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let touch = touches.first else {return}
+        let touchPt = touch.location(in: self.sceneView)
+        let resultType = ARHitTestResult.ResultType.existingPlaneUsingExtent;
+        let results = self.sceneView.hitTest(touchPt, types:[resultType])
+        if results.count == 0 { return }
+        let hitFeature = results.first!
+        let hitTransform = SCNMatrix4(hitFeature.worldTransform)
+
+        // If mesh not in scene yet
+        if self.currentDisplayNode == nil {
+            // Add it to scene
+            self.currentDisplayNode = self.displayNodes[0]
+            self.sceneView.scene.rootNode.addChildNode(self.currentDisplayNode!)
+        }
+
+        // Update mesh position
+        self.currentDisplayNode!.position = SCNVector3Make(hitTransform.m41,
+                                                           hitTransform.m42,
+                                                           hitTransform.m43)
+    }
 
     // show/hide debug info
     @IBAction func onDebugSwitch(_ sender: UISwitch) {
