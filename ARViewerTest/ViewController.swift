@@ -13,7 +13,9 @@ import ARKit
 class ViewController: UIViewController, ARSCNViewDelegate {
 
     @IBOutlet var sceneView: ARSCNView!
+
     var config = ARWorldTrackingConfiguration()
+    var planeNodes = NSMutableDictionary()
 
     // MARK: - UIView
 
@@ -62,6 +64,27 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         return node
     }
 */
+
+    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+        // Place content only for anchors found by plane detection.
+        guard let planeAnchor = anchor as? ARPlaneAnchor else { return }
+
+        // Create a SceneKit plane to visualize the plane anchor using its position and extent.
+        let planeNode = SCNPlaneNode(with: planeAnchor)
+        node.addChildNode(planeNode)
+        self.planeNodes.setObject(planeNode, forKey: anchor.identifier as NSCopying)
+    }
+
+    func renderer(_ renderer: SCNSceneRenderer, didRemove node: SCNNode, for anchor: ARAnchor) {
+        self.planeNodes.removeObject(forKey: anchor.identifier)
+    }
+
+    func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
+        guard let planeNode = self.planeNodes.object(forKey: anchor.identifier) as? SCNPlaneNode,
+              let planeAnchor = anchor as? ARPlaneAnchor
+              else { return }
+        planeNode.update(with: planeAnchor)
+    }
 
     // MARK: - ARSessionObserver
 /*
