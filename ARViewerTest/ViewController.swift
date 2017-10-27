@@ -68,6 +68,18 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         }
     }
 
+    // reset detected anchors
+    @IBAction func onResetButtonPressed(_ sender: UIButton) {
+        // Empty scene
+        self.sceneView.scene.rootNode.enumerateChildNodes { (node, stop) in
+            node.removeFromParentNode()
+        }
+        planeNodes.removeAllObjects()
+
+        // Rerun config after removing anchors
+        self.sceneView.session.run(self.config, options: [.resetTracking, .removeExistingAnchors])
+    }
+
     // MARK: - ARSCNViewDelegate
 
 /*

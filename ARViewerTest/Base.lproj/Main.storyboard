@@ -5,6 +5,7 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -20,10 +21,45 @@
                             <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="hbf-eA-AiP" userLabel="ARView">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                             </arscnView>
+                            <visualEffectView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uFd-Jr-jwd" userLabel="resetView">
+                                <rect key="frame" x="16" y="601" width="50" height="50"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="OVg-zm-Gu9">
+                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LCB-11-ZcG" userLabel="resetButton">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                            <state key="normal" title="↻">
+                                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="25"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="onResetButtonPressed:" destination="BV1-FR-VrT" eventType="touchUpInside" id="z7w-RG-ELd"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                </view>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="uFd-Jr-jwd" secondAttribute="height" id="8Gf-V1-q0r"/>
+                                    <constraint firstAttribute="height" constant="50" id="qal-RK-bRv"/>
+                                </constraints>
+                                <blurEffect style="light"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="25"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </visualEffectView>
                             <visualEffectView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dUx-Sn-7Ug" userLabel="planeVisibilityView">
-                                <rect key="frame" x="208.5" y="601" width="150.5" height="50"/>
+                                <rect key="frame" x="207.5" y="601" width="151.5" height="50"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="kPa-RC-8ja">
-                                    <rect key="frame" x="0.0" y="0.0" width="150" height="50"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="151.5" height="50"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="ewR-G0-4M4" userLabel="planeVisibilityStackView">
@@ -69,8 +105,10 @@
                             <constraint firstItem="qOy-m0-bMj" firstAttribute="trailing" secondItem="hbf-eA-AiP" secondAttribute="trailing" id="Ioy-DA-46V"/>
                             <constraint firstItem="hbf-eA-AiP" firstAttribute="leading" secondItem="qOy-m0-bMj" secondAttribute="leading" id="Laa-MB-7sd"/>
                             <constraint firstAttribute="trailing" secondItem="dUx-Sn-7Ug" secondAttribute="trailing" constant="16" id="ZPR-un-Y64"/>
+                            <constraint firstAttribute="bottom" secondItem="uFd-Jr-jwd" secondAttribute="bottom" constant="16" id="dDa-7t-cR0"/>
                             <constraint firstItem="qOy-m0-bMj" firstAttribute="bottom" secondItem="hbf-eA-AiP" secondAttribute="bottom" id="e4w-2K-b48"/>
                             <constraint firstAttribute="bottom" secondItem="dUx-Sn-7Ug" secondAttribute="bottom" constant="16" id="kGt-kR-Oeq"/>
+                            <constraint firstItem="uFd-Jr-jwd" firstAttribute="leading" secondItem="h6f-x4-HTD" secondAttribute="leading" constant="16" id="xxW-3o-fuy"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="qOy-m0-bMj"/>
                     </view>
