@@ -14,5 +14,6 @@ struct Constants {
 
     static let showStatistics = false
     static let debugOptions = ARSCNDebugOptions.showFeaturePoints
+    static let colorBufferWriteMask = [.red, .green, .blue, .alpha] as SCNColorMask
     static let planesOpacity = 0.5 as CGFloat
 }

@@ -22,10 +22,11 @@ class SCNPlaneNode: SCNNode {
 
         // Update material
         let mat = self.geometry!.firstMaterial
+        mat?.colorBufferWriteMask = show ? Constants.colorBufferWriteMask : []
         mat?.diffuse.contents = UIColor.random()
         mat?.lightingModel = .constant
 
-        self.isHidden = !show
+        self.renderingOrder = -1
         self.opacity = Constants.planesOpacity
         self.simdPosition = planeAnchor.center
         self.eulerAngles.x = -.pi / 2 // vertically oriented in its local coordinates -> rotate to horizontal

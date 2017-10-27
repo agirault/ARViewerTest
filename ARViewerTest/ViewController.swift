@@ -100,7 +100,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 
         self.sceneView.debugOptions = sender.isOn ? Constants.debugOptions : []
         for (_, planeNode) in planeNodes {
-            (planeNode as? SCNPlaneNode)?.isHidden = !sender.isOn
+            guard let mat = (planeNode as? SCNPlaneNode)?.geometry?.firstMaterial else { continue }
+            mat.colorBufferWriteMask = sender.isOn ? Constants.colorBufferWriteMask : []
         }
     }
 
