@@ -14,6 +14,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 
     @IBOutlet var sceneView: ARSCNView!
     @IBOutlet var debugSwitch: UISwitch!
+    @IBOutlet var instructionsView: UIView!
+    @IBOutlet var instructionsLabel: UILabel!
 
     var config = ARWorldTrackingConfiguration()
     var displayNodes = [SCNNode]()
@@ -34,8 +36,21 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         self.sceneView.session.run(self.config)
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        if planeNodes.count == 0 {
+            // Show instructions
+            self.instructionsLabel.text = Constants.scanRoomInstructionsLabel
+            self.showInstructions(true, 5.0) {};
+        }
+    }
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+
+        // Hide instructions
+        self.showInstructions(false, 0.0) {};
 
         // Pause the view's session
         self.sceneView.session.pause()
@@ -86,6 +101,16 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             // Add it to scene
             self.currentDisplayNode = self.displayNodes[0]
             self.sceneView.scene.rootNode.addChildNode(self.currentDisplayNode!)
+
+            // Update instructions
+            DispatchQueue.main.async {
+                self.showInstructions(false, 0.0) {
+                    self.instructionsLabel.text = Constants.meshPlacedInstructionsLabel
+                    self.showInstructions(true, 0.0) {
+                        self.showInstructions(false, 5.0) {}
+                    }
+                }
+            }
         }
 
         // Update mesh position
@@ -115,6 +140,10 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 
         // Rerun config after removing anchors
         self.sceneView.session.run(self.config, options: [.resetTracking, .removeExistingAnchors])
+
+        // Show instructions
+        self.instructionsLabel.text = Constants.scanRoomInstructionsLabel
+        self.showInstructions(true, 1.0) {};
     }
 
     // MARK: - ARSCNViewDelegate
@@ -133,6 +162,14 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         guard let planeAnchor = anchor as? ARPlaneAnchor else { return }
 
         DispatchQueue.main.async {
+            // First plane added, signal how to display the mesh
+            if self.planeNodes.count == 0 {
+                self.showInstructions(false, 0.0) {
+                    self.instructionsLabel.text = Constants.placeMeshInstructionsLabel
+                    self.showInstructions(true, 0.0) {};
+                }
+            }
+
             // Create a SceneKit plane to visualize the plane anchor using its position and extent.
             let planeNode = SCNPlaneNode(with: planeAnchor, show: self.debugSwitch.isOn)
             node.addChildNode(planeNode)
@@ -165,4 +202,24 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // Reset tracking and/or remove existing anchors if consistent tracking is required
     }
 */
+
+    // MARK: - Utility
+
+    func showInstructions(_ show : Bool, _ delay: TimeInterval, _ completion: @escaping () -> Void) {
+        // unhide if showing
+        if show {
+            self.instructionsView.isHidden = false
+        }
+
+        // animate alpha
+        UIView.animate(withDuration: 0.5, delay: delay, options: [], animations: {
+            self.instructionsView.alpha = show ? 1 : 0
+        }, completion: { _ in
+            // hide if not showing
+            if !show {
+                self.instructionsView.isHidden = true
+            }
+            completion()
+        })
+    }
 }

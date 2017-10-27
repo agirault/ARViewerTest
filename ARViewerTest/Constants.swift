@@ -16,4 +16,8 @@ struct Constants {
     static let debugOptions = ARSCNDebugOptions.showFeaturePoints
     static let colorBufferWriteMask = [.red, .green, .blue, .alpha] as SCNColorMask
     static let planesOpacity = 0.5 as CGFloat
+
+    static let scanRoomInstructionsLabel = "👋 Hey! Look around a bit more..."
+    static let placeMeshInstructionsLabel = "🎉 Neat! Now tap somewhere flat."
+    static let meshPlacedInstructionsLabel = "🚀 Yahooo!"
 }

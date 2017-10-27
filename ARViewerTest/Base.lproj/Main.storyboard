@@ -98,22 +98,55 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </visualEffectView>
+                            <visualEffectView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hsh-kG-aOu" userLabel="instructionsView">
+                                <rect key="frame" x="16" y="36" width="117.5" height="40"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="xH9-mb-2di">
+                                    <rect key="frame" x="0.0" y="0.0" width="118" height="40"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Instructions" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kt6-jd-ZX8" userLabel="instructionsLabel">
+                                            <rect key="frame" x="16" y="11" width="85.5" height="19.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="Kt6-jd-ZX8" secondAttribute="trailing" constant="16" id="63m-Kr-7mq"/>
+                                        <constraint firstItem="Kt6-jd-ZX8" firstAttribute="centerY" secondItem="xH9-mb-2di" secondAttribute="centerY" id="Ifj-t0-eo1"/>
+                                        <constraint firstItem="Kt6-jd-ZX8" firstAttribute="leading" secondItem="xH9-mb-2di" secondAttribute="leading" constant="16" id="sFr-jZ-2zk"/>
+                                    </constraints>
+                                </view>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="hG9-gj-mnO"/>
+                                </constraints>
+                                <blurEffect style="light"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </visualEffectView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="hbf-eA-AiP" firstAttribute="top" secondItem="qOy-m0-bMj" secondAttribute="top" id="2Wh-9j-s3Z"/>
                             <constraint firstItem="qOy-m0-bMj" firstAttribute="trailing" secondItem="hbf-eA-AiP" secondAttribute="trailing" id="Ioy-DA-46V"/>
                             <constraint firstItem="hbf-eA-AiP" firstAttribute="leading" secondItem="qOy-m0-bMj" secondAttribute="leading" id="Laa-MB-7sd"/>
+                            <constraint firstItem="hsh-kG-aOu" firstAttribute="top" secondItem="qOy-m0-bMj" secondAttribute="top" constant="16" id="Y8f-hO-4EU"/>
                             <constraint firstAttribute="trailing" secondItem="dUx-Sn-7Ug" secondAttribute="trailing" constant="16" id="ZPR-un-Y64"/>
                             <constraint firstAttribute="bottom" secondItem="uFd-Jr-jwd" secondAttribute="bottom" constant="16" id="dDa-7t-cR0"/>
                             <constraint firstItem="qOy-m0-bMj" firstAttribute="bottom" secondItem="hbf-eA-AiP" secondAttribute="bottom" id="e4w-2K-b48"/>
                             <constraint firstAttribute="bottom" secondItem="dUx-Sn-7Ug" secondAttribute="bottom" constant="16" id="kGt-kR-Oeq"/>
+                            <constraint firstItem="hsh-kG-aOu" firstAttribute="leading" secondItem="qOy-m0-bMj" secondAttribute="leading" constant="16" id="rIj-jB-Ar7"/>
                             <constraint firstItem="uFd-Jr-jwd" firstAttribute="leading" secondItem="h6f-x4-HTD" secondAttribute="leading" constant="16" id="xxW-3o-fuy"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="qOy-m0-bMj"/>
                     </view>
                     <connections>
                         <outlet property="debugSwitch" destination="3yg-79-qWE" id="gxA-bu-7RO"/>
+                        <outlet property="instructionsLabel" destination="Kt6-jd-ZX8" id="mQE-NZ-Dt6"/>
+                        <outlet property="instructionsView" destination="hsh-kG-aOu" id="Xw6-aq-R8F"/>
                         <outlet property="sceneView" destination="hbf-eA-AiP" id="KkS-FF-76i"/>
                     </connections>
                 </viewController>
